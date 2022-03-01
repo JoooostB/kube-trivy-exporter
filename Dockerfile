@@ -17,13 +17,13 @@ RUN curl -sSL https://github.com/aquasecurity/trivy/releases/download/v${TRIVY_V
 WORKDIR /build/
 
 COPY go.mod go.sum /build/
-RUN --mount=type=cache,target=/root/go/pkg/mod go mod download
+RUN go mod download
 
 RUN apk del --purge $deps
 
 COPY cmd /build/cmd
 COPY pkg /build/pkg
-RUN --mount=type=cache,target=/root/.cache/go-build go build -trimpath -o /usr/local/bin/main -ldflags="-s -w" /build/cmd/main.go
+RUN go build -trimpath -o /usr/local/bin/main -ldflags="-s -w" /build/cmd/main.go
 
 FROM alpine:3
 COPY --from=builder /usr/local/bin/main /usr/local/bin/main
