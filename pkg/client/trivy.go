@@ -49,7 +49,8 @@ func (c *TrivyClient) ClearCache(ctx context.Context) ([]byte, error) {
 }
 
 type TrivyResults struct {
-	Results []TrivyResponse `json:"Results"`
+	Results      []TrivyResponse `json:"Results"`
+	ArtifactName string          `json:"ArtifactName"`
 }
 
 type TrivyResponse struct {

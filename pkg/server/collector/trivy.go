@@ -107,7 +107,7 @@ func (c *TrivyCollector) Scan(ctx context.Context) error {
 		for _, trivyResponse := range result.Results {
 			for _, vulnerability := range trivyResponse.Vulnerabilities {
 				labels := []string{
-					trivyResponse.ExtractImage(),
+					result.ArtifactName,
 					vulnerability.VulnerabilityID,
 					vulnerability.PkgName,
 					vulnerability.InstalledVersion,
